@@ -1,0 +1,1 @@
+* 스프링 부트는 기본적으로 resource/static/index.html를 읽는다.
