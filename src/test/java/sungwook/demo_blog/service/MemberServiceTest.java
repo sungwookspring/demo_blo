@@ -1,5 +1,6 @@
 package sungwook.demo_blog.service;
 
+import org.assertj.core.api.Assert;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import sungwook.demo_blog.domain.Member;
@@ -26,7 +27,21 @@ class MemberServiceTest {
     }
 
     @Test
-    void findMembers() {
+    void 중복회원가입() {
+        Member member1 = new Member();
+        member1.setName("test1");
+        memberservice.join(member1);
+
+        Member member2 = new Member();
+        member2.setName("test1");
+
+        try{
+            memberservice.join(member2);
+            fail();
+        }catch(IllegalStateException e){
+            Assertions.assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다");
+        }
+
     }
 
     @Test
