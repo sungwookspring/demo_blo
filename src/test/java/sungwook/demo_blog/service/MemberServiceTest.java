@@ -2,13 +2,28 @@ package sungwook.demo_blog.service;
 
 import org.assertj.core.api.Assert;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import sungwook.demo_blog.domain.Member;
+import sungwook.demo_blog.repository.MemoryMemberRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class MemberServiceTest {
-    MemberService memberservice = new MemberService();
+    MemberService memberservice;
+    MemoryMemberRepository memoryMemberRepository;
+
+    @BeforeEach
+    public void BeforeEach(){
+        memoryMemberRepository = new MemoryMemberRepository();
+        memberservice = new MemberService(memoryMemberRepository);
+    }
+
+    @AfterEach
+    public void AfterEach(){
+        memoryMemberRepository.clearStore();
+    }
 
     @Test
     void 회원가입() {
