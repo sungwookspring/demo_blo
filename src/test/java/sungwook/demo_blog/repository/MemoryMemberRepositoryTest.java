@@ -1,5 +1,6 @@
 package sungwook.demo_blog.repository;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import sungwook.demo_blog.domain.Member;
@@ -12,6 +13,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemoryMemberRepositoryTest {
 
     MemoryMemberRepository repository = new MemoryMemberRepository();
+
+    /*
+        모든 테스트가 끌날 때 마다 저장소 초기화: 무작위 테스를 막기 위한 목적
+     */
+    @AfterEach
+    public void afterEach(){
+        repository.clearStore();
+    }
 
     @Test
     void save() {
@@ -56,4 +65,5 @@ class MemoryMemberRepositoryTest {
         List<Member> result = repository.findAll();
         assertThat(result.size()).isEqualTo(2);
     }
+
 }
